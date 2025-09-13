@@ -1,64 +1,64 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Metodología de Bryan Blum</title>
 
   <!-- Favicon con emoji -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📘</text></svg>">
-  
-  <style>
 
-    /* Colores y estilos de todo  */
+  <style>
+    :root{
+      --blue: #3498db;
+      --blue-dark: #2980b9;
+      --bg-a: #eaf4ff;
+      --card: #ffffff;
+      --muted: #6b7c93;
+    }
+
+    *{box-sizing: border-box;}
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #dfe9f3, #ffffff);
+      background: linear-gradient(135deg, #f3f8ff, #ffffff);
       margin: 0;
-      padding: 0;
-      color: #333;
+      color: #222;
+      -webkit-font-smoothing:antialiased;
     }
+
     header {
-      background: #3498db;
+      background: linear-gradient(135deg, var(--blue), #2e86c1);
       color: white;
-      padding: 0;
       text-align: center;
+      padding: 0;
     }
     header img {
-     width: 100%;
-    max-height: 150px;
-    object-fit: cover;
-    border-bottom: 2px solid #2980b9;
+      width: 100%;
+      max-height: 160px;
+      object-fit: cover;
+      border-bottom: 3px solid rgba(0,0,0,0.06);
     }
     header h1 {
-      margin: 10px 0 0 0;
-      font-size: 2em;
+      margin: 12px 0 6px;
+      font-size: 2.1rem;
+      letter-spacing: 0.4px;
     }
     header p {
-      margin: 10px 0 20px 0;
+      margin: 0 0 18px 0;
+      font-size: 0.98rem;
+      opacity: 0.95;
     }
 
     section {
       max-width: 1000px;
       margin: 20px auto;
       padding: 20px;
-      background: white;
+      background: var(--card);
       border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 8px 20px rgba(25,40,75,0.06);
     }
-    h2 {
-      color: #2c3e50;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 1.3em;
-    }
+    section h2 { color: #2c3e50; display:flex; align-items:center; gap:10px; font-size:1.25rem; }
     ul { margin-left: 20px; }
-
-    @media (max-width: 768px) {
-      section { margin: 10px; padding: 15px; }
-      h1 { font-size: 1.6em; }
-    }
 
     footer {
       text-align: center;
@@ -68,84 +68,278 @@
       margin-top: 20px;
     }
 
+    /* Botones generales */
     .btn-juego {
       margin: 5px;
-      padding: 10px 15px;
+      padding: 10px 16px;
       border: none;
-      border-radius: 8px;
-      background: #3498db;
+      border-radius: 10px;
+      background: var(--blue);
       color: white;
       cursor: pointer;
-      transition: 0.3s;
+      transition: transform 0.18s ease, background 0.18s ease;
+      font-weight: 700;
+      box-shadow: 0 6px 18px rgba(52,152,219,0.12);
     }
-    .btn-juego:hover { background: #2980b9; }
+    .btn-juego:hover { background: var(--blue-dark); transform: translateY(-3px); }
+    .btn-juego:active { transform: translateY(0); }
+    .btn-juego.activo { background: var(--blue-dark); box-shadow: 0 0 0 2px white, 0 0 0 4px var(--blue); }
 
-    /* Drag & Drop */
-    #fase-lista, #fase-zona {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+    /* ---------- SECCIÓN JUEGOS (más grande y vistosa) ---------- */
+    #juegos {
+      background: linear-gradient(180deg, rgba(234,244,255,0.6) 0%, rgba(214,236,255,0.6) 100%);
+      padding: 56px 16px;
+      min-height: 72vh;
+    }
+
+    #juegos .titulo {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 22px;
+    }
+
+    /* Card contenedor de juegos */
+    #contenedor-juegos {
+      max-width: 1200px;
+      margin: 36px auto 6px;
+      padding: 28px;
+      background: linear-gradient(180deg, #ffffff, #fbfdff);
+      border-radius: 20px;
+      box-shadow: 0 18px 40px rgba(28,60,120,0.06);
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    /* Menú lateral (izquierda) */
+    #menu-juegos {
+      position: sticky;
+      top: 24px;
+      display:flex;
+      flex-direction: column;
       gap: 10px;
-      margin-top: 15px;
-      padding: 10px;
-      min-height: 80px;
-      border: 2px dashed #3498db;
-      border-radius: 10px;
-      background: #f0f8ff;
+      padding: 16px;
+      border-radius: 14px;
+      background: linear-gradient(180deg,#f7fbff,#ffffff);
+      border: 1px solid rgba(52,152,219,0.08);
+      align-items: stretch;
+    }
+    #menu-juegos .btn-juego {
+      padding: 14px;
+      font-size: 1.02rem;
+      text-align: left;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    #menu-juegos .small { font-size: 0.86rem; opacity: 0.85; font-weight:600; }
+
+    /* Panel de juego (derecha) */
+    #panel-juego {
+      min-height: 420px;
+      background: linear-gradient(180deg,#ffffff,#f7fbff);
+      border-radius: 14px;
+      padding: 22px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+    }
+
+    /* estilos de cada "juego" */
+    .juego-card { display: none; }
+    .juego-card.active { display:block; animation: fadeIn .28s ease-in-out; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Drag & Drop (cartas más grandes) */
+    #fase-lista, #fase-zona {
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:16px;
+      padding:14px;
+      min-height:140px;
+      border-radius:12px;
+      border:2px dashed rgba(52,152,219,0.18);
+      background: linear-gradient(180deg, rgba(240,248,255,0.6), rgba(245,250,255,0.6));
+      align-items:flex-start;
     }
     .fase {
-      padding: 10px 15px;
-      background: #3498db;
+      padding: 12px 18px;
+      background: var(--blue);
       color: white;
-      border-radius: 8px;
+      border-radius: 12px;
       cursor: grab;
       user-select: none;
-      transition: transform 0.2s;
+      font-weight:700;
+      font-size: 1rem;
+      box-shadow: 0 8px 18px rgba(52,152,219,0.12);
     }
-    .fase:active { transform: scale(1.1); }
-    #resultado { margin-top: 15px; font-weight: bold; }
+    .fase:active { transform: scale(1.03); }
 
-    /* Memory */
+    #resultado {
+      margin-top: 14px;
+      font-weight: 800;
+      font-size: 1.05rem;
+    }
+
+    /* Memory -> tarjetas más grandes */
     #memory-board {
       display: grid;
-      grid-template-columns: repeat(4, 100px);
-      gap: 10px;
-      justify-content: center;
-      margin-top: 15px;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 14px;
+      margin-top: 18px;
     }
     .card {
-      width: 100px;
-      height: 100px;
-      background: #3498db;
+      width: 100%;
+      aspect-ratio: 1/1;
+      background: var(--blue);
       color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 10px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius: 12px;
       cursor: pointer;
-      font-size: 14px;
-      font-weight: bold;
+      font-weight: 800;
+      font-size: 1.05rem;
+      transition: transform .12s ease;
+      user-select:none;
+      box-shadow: 0 10px 22px rgba(52,152,219,0.12);
     }
-    .flipped { background: #2ecc71; }
+    .card:active { transform: translateY(2px); }
+    .card.flipped { background: #2ecc71; color:#063; }
 
     /* Ahorcado */
-    #ahorcado-palabra { font-size: 24px; letter-spacing: 5px; }
-    #ahorcado-intentos { margin: 10px 0; font-weight: bold; }
+    #ahorcado-palabra { font-size: 34px; letter-spacing: 8px; margin-top: 12px; font-weight:800; }
+    #ahorcado-intentos { margin: 10px 0; font-weight:700; color:var(--muted); }
+    #ahorcado-letras { margin-top: 12px; display:flex; flex-wrap:wrap; gap:8px; }
+
+    /* Responsive: vertical (menu arriba) */
+    @media (max-width: 980px) {
+      #contenedor-juegos { grid-template-columns: 1fr; padding: 18px; }
+      #menu-juegos { position: relative; top: 0; flex-direction: row; overflow:auto; padding: 8px; gap:8px; border-radius:12px; justify-content:center;}
+      #menu-juegos .btn-juego { white-space: nowrap; }
+    }
   </style>
+
+
+  <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        #presentacion-genialy {
+            max-width: 1200px;
+            margin: 30px auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            overflow: hidden;
+        }
+        
+        #presentacion-genialy h2 {
+            font-size: 28px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eaeaea;
+        }
+        
+        #presentacion-genialy p {
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #555;
+        }
+        
+        .contenedor-presentacion {
+            position: relative;
+            width: 100%;
+            padding-top: 75%; /* Relación de aspecto 4:3 */
+            margin: 25px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+        
+        .contenedor-presentacion iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+        }
+        
+        .nota-genialy {
+            font-size: 14px !important;
+            color: #777 !important;
+            font-style: italic;
+            text-align: center;
+            margin-top: 10px;
+        }
+        
+        /* Estilos responsivos */
+        @media (max-width: 768px) {
+            #presentacion-genialy {
+                padding: 20px;
+                margin: 15px auto;
+            }
+            
+            #presentacion-genialy h2 {
+                font-size: 24px;
+            }
+            
+            #presentacion-genialy p {
+                font-size: 16px;
+            }
+            
+            .contenedor-presentacion {
+                padding-top: 75%; /* Mantenemos la relación de aspecto en móviles */
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            #presentacion-genialy {
+                padding: 15px;
+            }
+            
+            #presentacion-genialy h2 {
+                font-size: 22px;
+            }
+        }
+    </style>
 </head>
 <body>
   <header>
-    <!-- Inclusion de la imagen tipo banner -->
     <img src="imagen/images.png" alt="Banner educativo">
     <h1>📘 Metodología de Bryan Blum</h1>
     <p>Planificación, ejecución y evaluación de proyectos con un enfoque práctico</p>
+    <!-- botón de 'Ir a juegos' eliminado -->
   </header>
 
   <!-- Biografía -->
   <section>
     <h2>📖 Biografía de Bryan Blum</h2>
     <p>
-      Brian Blum es conocido por su contribución al campo de la ingeniería de software,
+      Bryan Blum es conocido por su contribución al campo de la ingeniería de software,
       específicamente por haber desarrollado una metodología para la creación de software educativo y multimedia.
     </p>
     <p>
@@ -157,6 +351,20 @@
       Reconocimiento: No es una figura pública con una biografía detallada como la de otros pioneros tecnológicos.
     </p>
   </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   <!-- Qué es el método -->
   <section>
@@ -217,55 +425,91 @@
     </ul>
   </section>
 
-  <!-- Juegos -->
+
+  <!-- Nueva sección para la presentación de Genialy -->
+  <section id="presentacion-genialy">
+    <h2>🎬 Presentación Interactiva</h2>
+    <p>Explora esta presentación para conocer más detalles sobre la metodología de Bryan Blum de forma visual e interactiva.</p>
+    
+    <div class="contenedor-presentacion">
+      <!-- Reemplaza la URL con el enlace de embed de tu presentación de Genialy -->
+      <iframe src="https://view.genially.com/68c4f66abe87d4defd975db5/interactive-content-metodo-brian-blum" 
+              frameborder="0" 
+              allowfullscreen
+              allow="autoplay; encrypted-media"
+              title="Presentación interactiva sobre la metodología de Bryan Blum">
+      </iframe>
+    </div>
+    
+    <p class="nota-genialy">Nota: Si la presentación no se carga, asegúrate de tener una conexión a Internet activa.</p>
+  </section>
+
+
+  <!-- ---------- SECCIÓN JUEGOS MEJORADA Y FUNCIONAL ---------- -->
   <section id="juegos">
-    <h2>🎮 Juegos Interactivos</h2>
-    <p>Selecciona un juego para aprender jugando:</p>
+    <div class="titulo">🎮 Juegos Interactivos — Aprende jugando</div>
 
-    <div style="margin-bottom:15px;">
-      <button onclick="mostrarJuego('drag')" class="btn-juego">🖱️ Ordenar Fases</button>
-      <button onclick="mostrarJuego('quiz')" class="btn-juego">🧩 Quiz</button>
-      <button onclick="mostrarJuego('memory')" class="btn-juego">🃏 Memory</button>
-      <button onclick="mostrarJuego('ahorcado')" class="btn-juego">😵 Ahorcado</button>
-    </div>
+    <div id="contenedor-juegos">
+      <!-- MENU -->
+      <nav id="menu-juegos" aria-label="Menú de juegos">
+        <button class="btn-juego" onclick="mostrarJuego('drag', this)">🖱️ Ordenar Fases <span class="small">arrastrar</span></button>
+        <button class="btn-juego" onclick="mostrarJuego('quiz', this)">🧩 Quiz <span class="small">selección</span></button>
+        <button class="btn-juego" onclick="mostrarJuego('memory', this)">🃏 Memory <span class="small">memoria</span></button>
+        <button class="btn-juego" onclick="mostrarJuego('ahorcado', this)">😵 Ahorcado <span class="small">letras</span></button>
+      </nav>
 
-    <!-- Drag & Drop -->
-    <div id="juego-drag" style="display:none;">
-      <h3>🖱️ Ordena las fases en el orden correcto</h3>
-      <div id="fase-lista">
-        <div class="fase" draggable="true">Ejecución</div>
-        <div class="fase" draggable="true">Planificación</div>
-        <div class="fase" draggable="true">Evaluación</div>
-        <div class="fase" draggable="true">Diagnóstico</div>
+      <!-- PANEL -->
+      <div id="panel-juego" role="region" aria-live="polite">
+        <!-- Drag & Drop -->
+        <div id="juego-drag" class="juego-card">
+          <h3>🖱️ Ordena las fases en el orden correcto</h3>
+          <p>Arrastra cada fase hacia la zona de orden. Cuando estén las 4, se validará el orden.</p>
+
+          <div id="fase-lista" aria-label="Lista de fases"></div>
+
+          <div id="fase-zona" aria-label="Zona de orden">Arrastra aquí en orden correcto</div>
+          <div id="resultado"></div>
+          <div style="margin-top:12px;">
+            <button class="btn-juego" onclick="resetDrag()">🔀 Reiniciar orden</button>
+          </div>
+        </div>
+
+        <!-- Quiz -->
+        <div id="juego-quiz" class="juego-card">
+          <h3>🧩 Quiz</h3>
+          <p>¿Qué fase corresponde a identificar problemas y recursos?</p>
+          <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:10px;">
+            <button class="btn-juego" onclick="quizRespuesta('Planificación')">Planificación</button>
+            <button class="btn-juego" onclick="quizRespuesta('Diagnóstico')">Diagnóstico</button>
+            <button class="btn-juego" onclick="quizRespuesta('Ejecución')">Ejecución</button>
+          </div>
+          <p id="quiz-resultado" style="margin-top:14px; font-weight:800;"></p>
+        </div>
+
+        <!-- Memory -->
+        <div id="juego-memory" class="juego-card">
+          <h3>🃏 Memory de fases</h3>
+          <p>Haz parejas de las fases: descubre y recuerda.</p>
+          <div id="memory-board"></div>
+          <p id="memory-resultado" style="margin-top:12px; font-weight:800;"></p>
+          <div style="margin-top:12px;">
+            <button class="btn-juego" onclick="initMemory()">🔁 Reiniciar Memory</button>
+          </div>
+        </div>
+
+        <!-- Ahorcado -->
+        <div id="juego-ahorcado" class="juego-card">
+          <h3>😵 Ahorcado</h3>
+          <p>Adivina la palabra relacionada con las fases antes de que se acaben los intentos.</p>
+          <p id="ahorcado-palabra"></p>
+          <p id="ahorcado-intentos"></p>
+          <div id="ahorcado-letras"></div>
+          <p id="ahorcado-resultado" style="margin-top:10px; font-weight:800;"></p>
+          <div style="margin-top:12px;">
+            <button class="btn-juego" onclick="initAhorcado()">🔁 Reiniciar Ahorcado</button>
+          </div>
+        </div>
       </div>
-      <div id="fase-zona">Arrastra aquí en orden correcto</div>
-      <div id="resultado"></div>
-    </div>
-
-    <!-- Quiz -->
-    <div id="juego-quiz" style="display:none;">
-      <h3>🧩 Quiz</h3>
-      <p>¿Qué fase corresponde a identificar problemas y recursos?</p>
-      <button onclick="quizRespuesta('Planificación')">Planificación</button>
-      <button onclick="quizRespuesta('Diagnóstico')">Diagnóstico</button>
-      <button onclick="quizRespuesta('Ejecución')">Ejecución</button>
-      <p id="quiz-resultado"></p>
-    </div>
-
-    <!-- Memory -->
-    <div id="juego-memory" style="display:none;">
-      <h3>🃏 Memory de fases</h3>
-      <div id="memory-board"></div>
-      <p id="memory-resultado"></p>
-    </div>
-
-    <!-- Ahorcado -->
-    <div id="juego-ahorcado" style="display:none;">
-      <h3>😵 Ahorcado</h3>
-      <p id="ahorcado-palabra"></p>
-      <p id="ahorcado-intentos"></p>
-      <div id="ahorcado-letras"></div>
-      <p id="ahorcado-resultado"></p>
     </div>
   </section>
 
@@ -276,112 +520,289 @@
 
   <!-- Scripts de juegos -->
   <script>
-    function mostrarJuego(id) {
-      document.querySelectorAll("#juegos > div").forEach(div => div.style.display = "none");
-      document.getElementById("juego-" + id).style.display = "block";
+    // Variables globales para los juegos
+    let juegoActual = 'drag';
+    let memoryInicializado = false;
+    let ahorcadoInicializado = false;
+    let dragInicializado = false;
+
+    /* ---------- NAVEGACIÓN ENTRE JUEGOS ---------- */
+    function mostrarJuego(id, btn) {
+      // Ocultar todas las tarjetas
+      document.querySelectorAll('.juego-card').forEach(c => c.classList.remove('active'));
+      
+      // Mostrar la tarjeta correspondiente
+      const panel = document.getElementById('juego-' + id);
+      if (panel) panel.classList.add('active');
+      
+      // Marcar botón activo
+      document.querySelectorAll('#menu-juegos .btn-juego').forEach(b => b.classList.remove('activo'));
+      if (btn) btn.classList.add('activo');
+      
+      // Inicializar el juego si no ha sido inicializado
+      if (id === 'memory' && !memoryInicializado) {
+        initMemory();
+        memoryInicializado = true;
+      }
+      if (id === 'ahorcado' && !ahorcadoInicializado) {
+        initAhorcado();
+        ahorcadoInicializado = true;
+      }
+      if (id === 'drag' && !dragInicializado) {
+        resetDrag();
+        dragInicializado = true;
+      }
+      
+      juegoActual = id;
     }
 
-    // Drag & Drop
-    const fasesCorrectas = ["Diagnóstico","Planificación","Ejecución","Evaluación"];
-    const zona = document.getElementById("fase-zona");
-    zona.addEventListener("dragover", e => e.preventDefault());
-    zona.addEventListener("drop", e => {
-      const id = e.dataTransfer.getData("text");
+    // Inicializar la página con el primer juego
+    document.addEventListener('DOMContentLoaded', () => {
+      const primerBtn = document.querySelector('#menu-juegos .btn-juego');
+      mostrarJuego('drag', primerBtn);
+    });
+
+    /* ---------- DRAG & DROP ---------- */
+    const fasesCorrectas = ["Diagnóstico", "Planificación", "Ejecución", "Evaluación"];
+    let zonaElem, resultadoDiv;
+
+    function setupDragElements() {
+      zonaElem = document.getElementById('fase-zona');
+      resultadoDiv = document.getElementById('resultado');
+
+      // Limpiar listeners previos
+      if (zonaElem) {
+        zonaElem.removeEventListener('dragover', preventDefaultHandler);
+        zonaElem.removeEventListener('drop', dropHandler);
+      }
+
+      // Asignar listeners
+      if (zonaElem) {
+        zonaElem.addEventListener('dragover', preventDefaultHandler);
+        zonaElem.addEventListener('drop', dropHandler);
+      }
+
+      // Asignar draggable a los elementos actuales
+      document.querySelectorAll('#fase-lista .fase').forEach((f, idx) => {
+        f.id = 'fase-drag-' + idx;
+        f.draggable = true;
+        f.addEventListener('dragstart', e => {
+          e.dataTransfer.setData('text/plain', f.id);
+        });
+      });
+    }
+
+    function preventDefaultHandler(e) {
+      e.preventDefault();
+    }
+
+    function dropHandler(e) {
+      e.preventDefault();
+      const id = e.dataTransfer.getData('text/plain');
       const elemento = document.getElementById(id);
-      zona.appendChild(elemento);
-      verificarOrden();
-    });
-    document.querySelectorAll(".fase").forEach((f, idx) => {
-      f.id = "fase-" + idx;
-      f.addEventListener("dragstart", e => e.dataTransfer.setData("text", f.id));
-    });
-    function verificarOrden(){
-      const orden = Array.from(zona.children).map(f=>f.textContent);
-      if(orden.length===fasesCorrectas.length){
-        document.getElementById("resultado").textContent =
-          JSON.stringify(orden)===JSON.stringify(fasesCorrectas)
-            ? "🎉 ¡Correcto!"
-            : "❌ Orden incorrecto. Intenta de nuevo.";
+      if (elemento) {
+        // Verificar si el elemento ya está en la zona
+        if (!zonaElem.contains(elemento)) {
+          zonaElem.appendChild(elemento);
+        }
+        verificarOrden();
       }
     }
 
-    // Quiz
-    function quizRespuesta(resp){
-      document.getElementById("quiz-resultado").textContent =
-        resp==="Diagnóstico" ? "🎉 ¡Correcto!" : "❌ Incorrecto.";
+    function verificarOrden() {
+      const orden = Array.from(zonaElem.children)
+        .filter(el => el.classList.contains('fase'))
+        .map(f => f.textContent.trim());
+        
+      if (orden.length === fasesCorrectas.length) {
+        const esCorrecto = JSON.stringify(orden) === JSON.stringify(fasesCorrectas);
+        resultadoDiv.textContent = esCorrecto 
+          ? "🎉 ¡Correcto! El orden es el adecuado." 
+          : "❌ Orden incorrecto. Intenta de nuevo.";
+        resultadoDiv.style.color = esCorrecto ? 'green' : 'red';
+      } else {
+        resultadoDiv.textContent = "";
+      }
     }
 
-    // Memory
-    const fases = ["Diagnóstico","Planificación","Ejecución","Evaluación"];
-    let memoryBoard = document.getElementById("memory-board");
-    let selected = [], matched = 0;
-    function initMemory(){
-      memoryBoard.innerHTML="";
-      selected=[]; matched=0;
-      let cards=[...fases,...fases].sort(()=>Math.random()-0.5);
-      cards.forEach((fase,idx)=>{
-        let card=document.createElement("div");
-        card.className="card";
-        card.dataset.fase=fase;
-        card.textContent="?";
-        card.addEventListener("click",()=>flipCard(card));
-        memoryBoard.appendChild(card);
+    function resetDrag() {
+      const contLista = document.getElementById('fase-lista');
+      const zone = document.getElementById('fase-zona');
+      
+      // Mezclar las fases y renderizar en la lista
+      const nombres = [...fasesCorrectas].sort(() => Math.random() - 0.5);
+      
+      if (contLista) {
+        contLista.innerHTML = '';
+        nombres.forEach((n, i) => {
+          const el = document.createElement('div');
+          el.className = 'fase';
+          el.textContent = n;
+          contLista.appendChild(el);
+        });
+      }
+      
+      if (zone) zone.innerHTML = 'Arrastra aquí en orden correcto';
+      if (resultadoDiv) resultadoDiv.textContent = '';
+      
+      // Configurar listeners para los nuevos elementos
+      setupDragElements();
+    }
+
+    /* ---------- QUIZ ---------- */
+    function quizRespuesta(resp) {
+      const resultadoElem = document.getElementById("quiz-resultado");
+      if (resp === "Diagnóstico") {
+        resultadoElem.textContent = "🎉 ¡Correcto! La fase de Diagnóstico identifica problemas y recursos.";
+        resultadoElem.style.color = 'green';
+      } else {
+        resultadoElem.textContent = "❌ Incorrecto. La respuesta correcta es Diagnóstico.";
+        resultadoElem.style.color = 'red';
+      }
+    }
+
+    /* ---------- MEMORY ---------- */
+    const fasesMemory = ["Diagnóstico", "Planificación", "Ejecución", "Evaluación"];
+    let selectedCards = [];
+    let matchedPairs = 0;
+    let bloqueado = false;
+
+    function initMemory() {
+      const memoryBoardElem = document.getElementById('memory-board');
+      selectedCards = [];
+      matchedPairs = 0;
+      bloqueado = false;
+      document.getElementById('memory-resultado').textContent = '';
+      
+      // Crear array con pares y mezclar
+      let cards = [...fasesMemory, ...fasesMemory]
+        .sort(() => Math.random() - 0.5);
+      
+      memoryBoardElem.innerHTML = '';
+      
+      cards.forEach((fase, idx) => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.dataset.fase = fase;
+        card.dataset.index = idx;
+        card.textContent = '?';
+        card.addEventListener('click', () => flipCard(card));
+        memoryBoardElem.appendChild(card);
       });
     }
-    function flipCard(card){
-      if(selected.length<2 && !card.classList.contains("flipped")){
-        card.textContent=card.dataset.fase;
-        selected.push(card);
-        if(selected.length===2){
-          if(selected[0].dataset.fase===selected[1].dataset.fase){
-            selected.forEach(c=>c.classList.add("flipped"));
-            matched++;
-            if(matched===fases.length)
-              document.getElementById("memory-resultado").textContent="🎉 ¡Completado!";
-          }else{
-            setTimeout(()=>selected.forEach(c=>c.textContent="?"),1000);
+
+    function flipCard(card) {
+      if (bloqueado || card.classList.contains('flipped') || selectedCards.length >= 2) {
+        return;
+      }
+      
+      card.textContent = card.dataset.fase;
+      selectedCards.push(card);
+      
+      if (selectedCards.length === 2) {
+        bloqueado = true;
+        const [card1, card2] = selectedCards;
+        
+        if (card1.dataset.fase === card2.dataset.fase && card1.dataset.index !== card2.dataset.index) {
+          // Par correcto
+          card1.classList.add('flipped');
+          card2.classList.add('flipped');
+          matchedPairs++;
+          
+          if (matchedPairs === fasesMemory.length) {
+            document.getElementById('memory-resultado').textContent = "🎉 ¡Completado! Has encontrado todas las parejas.";
+            document.getElementById('memory-resultado').style.color = 'green';
           }
-          selected=[];
+          
+          selectedCards = [];
+          bloqueado = false;
+        } else {
+          // Par incorrecto
+          setTimeout(() => {
+            card1.textContent = '?';
+            card2.textContent = '?';
+            selectedCards = [];
+            bloqueado = false;
+          }, 1000);
         }
       }
     }
-    initMemory();
 
-    // Ahorcado
-    const palabras=["Diagnostico","Planificacion","Ejecucion","Evaluacion"];
-    let palabra, oculto, intentos;
-    const contPalabra=document.getElementById("ahorcado-palabra");
-    const contIntentos=document.getElementById("ahorcado-intentos");
-    const contLetras=document.getElementById("ahorcado-letras");
-    const contRes=document.getElementById("ahorcado-resultado");
-    function initAhorcado(){
-      palabra=palabras[Math.floor(Math.random()*palabras.length)].toUpperCase();
-      oculto=Array(palabra.length).fill("_");
-      intentos=6;
-      contPalabra.textContent=oculto.join(" ");
-      contIntentos.textContent="Intentos: "+intentos;
-      contRes.textContent="";
-      contLetras.innerHTML="";
-      "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ".split("").forEach(l=>{
-        let btn=document.createElement("button");
-        btn.textContent=l;
-        btn.className="btn-juego";
-        btn.onclick=()=>adivinar(l,btn);
-        contLetras.appendChild(btn);
-      });
+    /* ---------- AHORCADO ---------- */
+    const palabrasAhorcado = ["DIAGNOSTICO", "PLANIFICACION", "EJECUCION", "EVALUACION"];
+    let palabraActual, palabraOculta, intentosRestantes;
+    let letrasAdivinadas = [];
+
+    function initAhorcado() {
+      palabraActual = palabrasAhorcado[Math.floor(Math.random() * palabrasAhorcado.length)];
+      palabraOculta = Array(palabraActual.length).fill('_');
+      intentosRestantes = 6;
+      letrasAdivinadas = [];
+      
+      actualizarInterfazAhorcado();
+      generarTeclado();
     }
-    function adivinar(letra,btn){
-      btn.disabled=true;
-      let acierto=false;
-      for(let i=0;i<palabra.length;i++){
-        if(palabra[i]===letra){ oculto[i]=letra; acierto=true; }
+
+    function actualizarInterfazAhorcado() {
+      document.getElementById('ahorcado-palabra').textContent = palabraOculta.join(' ');
+      document.getElementById('ahorcado-intentos').textContent = `Intentos restantes: ${intentosRestantes}`;
+      document.getElementById('ahorcado-resultado').textContent = '';
+    }
+
+    function generarTeclado() {
+      const contenedorLetras = document.getElementById('ahorcado-letras');
+      contenedorLetras.innerHTML = '';
+      
+      const letras = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ';
+      
+      for (let letra of letras) {
+        const boton = document.createElement('button');
+        boton.className = 'btn-juego';
+        boton.textContent = letra;
+        boton.addEventListener('click', () => adivinarLetra(letra, boton));
+        contenedorLetras.appendChild(boton);
       }
-      contPalabra.textContent=oculto.join(" ");
-      if(!acierto){ intentos--; contIntentos.textContent="Intentos: "+intentos; }
-      if(!oculto.includes("_")) contRes.textContent="🎉 ¡Ganaste!";
-      if(intentos===0) contRes.textContent="💀 Perdiste. Era: "+palabra;
     }
-    initAhorcado();
+
+    function adivinarLetra(letra, boton) {
+      // Deshabilitar el botón
+      boton.disabled = true;
+      
+      // Si la letra ya fue adivinada, no hacer nada
+      if (letrasAdivinadas.includes(letra)) {
+        return;
+      }
+      
+      letrasAdivinadas.push(letra);
+      
+      if (palabraActual.includes(letra)) {
+        // Letra correcta
+        for (let i = 0; i < palabraActual.length; i++) {
+          if (palabraActual[i] === letra) {
+            palabraOculta[i] = letra;
+          }
+        }
+        
+        // Verificar si ganó
+        if (!palabraOculta.includes('_')) {
+          document.getElementById('ahorcado-resultado').textContent = '🎉 ¡Ganaste! La palabra era: ' + palabraActual;
+          document.getElementById('ahorcado-resultado').style.color = 'green';
+          document.querySelectorAll('#ahorcado-letras button').forEach(btn => btn.disabled = true);
+        }
+      } else {
+        // Letra incorrecta
+        intentosRestantes--;
+        
+        if (intentosRestantes <= 0) {
+          document.getElementById('ahorcado-resultado').textContent = '💀 Perdiste. La palabra era: ' + palabraActual;
+          document.getElementById('ahorcado-resultado').style.color = 'red';
+          document.querySelectorAll('#ahorcado-letras button').forEach(btn => btn.disabled = true);
+        }
+      }
+      
+      actualizarInterfazAhorcado();
+    }
   </script>
 </body>
 </html>
+
