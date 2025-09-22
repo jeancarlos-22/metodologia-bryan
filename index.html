@@ -222,6 +222,29 @@
       #menu-juegos { position: relative; top: 0; flex-direction: row; overflow:auto; padding: 8px; gap:8px; border-radius:12px; justify-content:center;}
       #menu-juegos .btn-juego { white-space: nowrap; }
     }
+
+    .boton-bonito {
+      background: linear-gradient(45deg, #4e9af1, #6ee7b7);
+      color: white;
+      padding: 14px 28px;
+      border: none;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .boton-bonito:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.25);
+      background: linear-gradient(45deg, #6ee7b7, #4e9af1);
+    }
+
+    .boton-bonito:active {
+      transform: scale(0.96);
+    }
   </style>
 
 
@@ -351,17 +374,6 @@
       Reconocimiento: No es una figura pública con una biografía detallada como la de otros pioneros tecnológicos.
     </p>
   </section>
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -512,6 +524,11 @@
       </div>
     </div>
   </section>
+
+  </style>
+ <button class="boton-bonito" onclick="window.location.href='index1.html'"></button>
+  Pagina Metodología
+  </button>
 
   <footer>
     <p>&copy; 2025 - Página educativa sobre la metodología de Bryan Blum</p>
